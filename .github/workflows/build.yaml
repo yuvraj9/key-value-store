@@ -2,9 +2,7 @@ name: Package Docker Image
 
 on:
   push:
-    branches: 
-      - main
-      - testactions
+    branches:
     paths:
       - "**"
 

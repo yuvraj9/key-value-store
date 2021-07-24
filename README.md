@@ -55,25 +55,32 @@ key-value-store
 ├── utils.py
 ```
 
-- main.py
+- **main.py**
+
 This contains main function which initialize the flask server. We add routing for class here.
 
-- utils.py
+- **utils.py**
+
 This includes logger function which helps in logging in the application.
 
-- kv/resource.py
+- **kv/resource.py**
+
 This contains KeyValueStore class which have our get and put functions. This will handle the main functionality of server. It helps in retrieving value of key and setting values of key-value pairs.
 
-- kv/storage.py
+- **kv/storage.py**
+
 This file is being used to handle the storage feature of the application. It is being used for reading and writing data from file. We also create the file if it doesn't exist in this.
 
-- kv/sockets.py 
+- **kv/sockets.py**
+
 This contains sockets which are being used to broadcast events whenever there will be new updates in key value pair.
 
-- kv
+- **kv**
+
 This is the client which can be used as a CLI. It supports three commands - get, put and watch. This uses requests module to call api's running on web server and also connects to socket of server.
 
-- requirements.txt
+- **requirements.txt**
+
 This contains all required packages which can be installed using pip.
 ```
 pip install -r requirements.txt
