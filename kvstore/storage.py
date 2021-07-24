@@ -29,7 +29,7 @@ class Storage():
             if not os.path.exists("store.json"):
                 file = open('store.json', 'x')
                 with open('store.json', 'w') as file:
-                    json.dump("{}", file)
+                    json.dump({}, file)
 
             # Reads the file
             with open('store.json', 'r') as file:
