@@ -14,7 +14,7 @@ def get_value(key):
 
     Parameters:
         key: The key for which we need to get value.
-    
+
     Returns:
         response: Returns the value of key from key-value store
     """
@@ -25,7 +25,7 @@ def get_value(key):
     }
 
     try:
-        response = requests.get(url, json = query_params)
+        response = requests.get(url, json=query_params)
         return response.text
     except requests.exceptions.RequestException as error:
         raise SystemExit(error)
@@ -38,7 +38,7 @@ def put_value(key, value):
     Parameters:
         key: The key for which we need to update value.
         value: The value of key.
-    
+
     Returns:
         response: Returns the updated key value pair.
     """
@@ -49,17 +49,17 @@ def put_value(key, value):
         'value': value
     }
     try:
-        response = requests.put(url, json = query_params)
+        response = requests.put(url, json=query_params)
         return response.text
     except requests.exceptions.RequestException as error:
         raise SystemExit(error)
 
 
-
 # Click is being used to create a CLI.
 @click.group()
 def commands():
-  pass
+    pass
+
 
 @click.command()
 @click.argument(
@@ -67,12 +67,13 @@ def commands():
 )
 def get(key):
     """
-    It can be used to get value of a particular key. 
+    It can be used to get value of a particular key.
     Example -> kv get exampleKey
     """
 
     response = get_value(key)
     click.echo(response)
+
 
 @click.command()
 @click.argument('key')
@@ -86,7 +87,7 @@ def put(key, value):
     response = put_value(key, value)
     click.echo(response)
 
-        
+
 @click.command()
 def watch():
     """
@@ -96,12 +97,15 @@ def watch():
     sio.connect('http://localhost:5000')
     sio.wait()
 
+
 # Adding sub commands in kv command.
 commands.add_command(get)
 commands.add_command(put)
 commands.add_command(watch)
 
-##Sockets
+# Sockets
+
+
 @sio.event
 def connect():
     print('connected to server')
@@ -112,6 +116,8 @@ def disconnect():
     print('disconnected from server')
 
 # Listens for key_update event from server.
+
+
 @sio.on('key_update')
 def my_broadcast_event(data):
     print(data)

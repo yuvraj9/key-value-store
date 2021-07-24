@@ -2,7 +2,7 @@ import socketio
 from flask_restful import Api
 from kvstore.resource import KeyValueStore
 from kvstore.sockets import sio
-from flask import Flask, request
+from flask import Flask
 
 # Creating instance of flask
 app = Flask(__name__)

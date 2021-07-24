@@ -12,13 +12,14 @@ def key_update_event(data):
     """
     Broadcasts the event message to all clients.
 
-    Parameter: 
+    Parameter:
         data: Data to send to clients.
     """
     try:
         sio.emit('key_update', {'data': data})
     except Exception as error:
-        logger.error("Error while broadcasting {err}".format(err = error))
+        logger.error("Error while broadcasting {err}".format(err=error))
+
 
 @sio.event
 def connect(sid, test):
@@ -28,7 +29,8 @@ def connect(sid, test):
     try:
         sio.emit('connected', {'data': 'Connected', 'count': 0}, room=sid)
     except socketio.exceptions.ConnectionError as error:
-        logger.error("Connection Error {err}".format(err = error))
+        logger.error("Connection Error {err}".format(err=error))
+
 
 @sio.event
 def disconnect(sid):

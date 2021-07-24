@@ -1,6 +1,7 @@
 import sys
 import logging
 
+
 def get_logger():
     """
     Logger function which can be used to log events.

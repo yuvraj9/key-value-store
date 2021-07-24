@@ -32,7 +32,7 @@ class Storage():
         """
         The function is used to create[if doesn't exist]/read the file.
         Then we store the data in a variable and return it.
-          
+
         Returns:
             KVSTORE: Data from the file. If new file we return empty json.
         """
@@ -40,7 +40,7 @@ class Storage():
             # Reads the file
             with open('store.json', 'r') as file:
                 data = file.read()
-            
+
             # Converts file data into a json
             KVSTORE = json.loads(data)
 
@@ -53,7 +53,7 @@ class Storage():
     def write(self, data):
         """
         The function is used to write data in file.
-          
+
         Parameters:
             data: Data to write in file.
         """
