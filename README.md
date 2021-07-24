@@ -11,17 +11,18 @@ This will start the webserver on your local machine. It will expose the service 
 docker run -d -p 5000:5000 ghcr.io/yuvraj9/key-value-store-main:latest
 ```
 
-#### 2. Download CLI client
+#### 2. Use CLI client
 To use the CLI client you can use the same the container which is running and execute inside it or you can use it on your local machine.
 - **Use CLI in already running docker container[Command line is already present as binary executable]**
 
 ```
 container_id=$(docker ps | grep "ghcr.io/yuvraj9/key-value-store-main" | awk '{print $1}' | head -n 1)
 docker exec -it $container_id /bin/sh
+kv --help
 ```
 
 ### 3. Run commands to perform actions
-The CLI client have have three sub commands - get, put and watch.
+The CLI client have have three sub commands - get, put and watch. You can also use ```kv --help```
 
 - **get** -> This will display the value of an existing key.
 ```
