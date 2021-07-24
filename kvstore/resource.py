@@ -28,7 +28,7 @@ class KeyValueStore(Resource):
     def get(self):
         """
         The function to get value of given key.
-  
+        
         Parameters:
             key : The key for which we need to find the value.
           
@@ -48,7 +48,7 @@ class KeyValueStore(Resource):
 
             if not value:
                 # If key doesn't exist we return error message with a 404 status code
-                return  {'status_code': 404, 'error': "Key Doesn't exist"}, 400
+                return  {'status_code': 404, 'error': "Key Doesn't exist"}, 404
 
             return {"value": value}
 

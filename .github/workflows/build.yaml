@@ -43,4 +43,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/yuvraj9/${{ github.event.repository.name }}-${{ steps.get_branch.outputs.branch }}:${{ steps.get_version.outputs.version }}
+        tags: |
+          ghcr.io/yuvraj9/${{ github.event.repository.name }}-${{ steps.get_branch.outputs.branch }}:${{ steps.get_version.outputs.version }}
+          ghcr.io/yuvraj9/${{ github.event.repository.name }}-${{ steps.get_branch.outputs.branch }}:latest

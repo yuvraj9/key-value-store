@@ -1,6 +1,6 @@
 import socketio
 from flask_restful import Api
-from kvstore.resource import *
+from kvstore.resource import KeyValueStore
 from kvstore.sockets import sio
 from flask import Flask, request
 
