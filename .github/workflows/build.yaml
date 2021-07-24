@@ -1,8 +1,13 @@
+
+
 name: Package Docker Image
 
+# Controls when the action will run. Triggers the workflow on commit push from the branchs listed.
+# Also, triggers the workflow when matched the expression/pattern defined under tags: field.
 on:
   push:
     branches:
+    - dontbuild
     paths:
       - "**"
 
