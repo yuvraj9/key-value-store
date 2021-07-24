@@ -5,8 +5,16 @@ import json
 from flask import Flask, request
 from waitress import serve
 from werkzeug.exceptions import ExpectationFailed
+import socketio
 import logging
 
+# create a Socket.IO server
+sio = socketio.Server(logger=True, async_mode='threading')
+app = Flask(__name__)
+# wrap with a WSGI application
+app.wsgi_app = socketio.WSGIApp(sio, app.wsgi_app)
+# app.config['SECRET_KEY'] = 'secret!'
+# thread = None
 
 if not os.path.exists("store.json"):
     file = open('store.json', 'x')
@@ -61,10 +69,26 @@ class keyvalue:
         updates = "Updated key: {} and value: {}".format(key,value)
         logger.info(updates)
 
+        key_update_event(updates)
+
         with open('store.json', 'w') as file: 
             json.dump(kvStore, file)
         
         return "Done"
+
+### Defining socket Events. These help in sending events to clients.
+### 
+@sio.event
+def key_update_event(data):
+    sio.emit('key_update', {'data': data})
+
+@sio.event
+def connect(sid, environ):
+    sio.emit('connected', {'data': 'Connected', 'count': 0}, room=sid)
+
+@sio.event
+def disconnect(sid):
+    print('Client disconnected')
 
 # Calling keyvalue class
 kv = keyvalue()
@@ -85,4 +109,4 @@ def update():
     return kv.set_value(key, value)
 
 if __name__ == "__main__":
-    serve(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000)
