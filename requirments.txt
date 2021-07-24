@@ -1,0 +1,8 @@
+simple-websocket
+flask
+python-socketio
+flask_restful
+
+python-socketio[client]
+requests
+click

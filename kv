@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+
+import click
+import socketio
+import requests
+from click.decorators import argument
+
+sio = socketio.Client()
+
+
+def get_value(key):
+    """
+    This function is used to get key value from server.
+
+    Parameters:
+        key: The key for which we need to get value.
+    
+    Returns:
+        response: Returns the value of key from key-value store
+    """
+
+    url = 'http://localhost:5000/kv'
+    query_params = {
+        'key': key
+    }
+
+    try:
+        response = requests.get(url, json = query_params)
+        return response.text
+    except requests.exceptions.RequestException as error:
+        raise SystemExit(error)
+
+
+def put_value(key, value):
+    """
+    This function is used to update key with value in key value store.
+
+    Parameters:
+        key: The key for which we need to update value.
+        value: The value of key.
+    
+    Returns:
+        response: Returns the updated key value pair.
+    """
+
+    url = 'http://localhost:5000/kv'
+    query_params = {
+        'key': key,
+        'value': value
+    }
+    try:
+        response = requests.put(url, json = query_params)
+        return response.text
+    except requests.exceptions.RequestException as error:
+        raise SystemExit(error)
+
+
+
+# Click is being used to create a CLI.
+@click.group()
+def commands():
+  pass
+
+@click.command()
+@click.argument(
+    'key'
+)
+def get(key):
+    """
+    It can be used to get value of a particular key. 
+    Example -> kv get exampleKey
+    """
+
+    response = get_value(key)
+    click.echo(response)
+
+@click.command()
+@click.argument('key')
+@click.argument('value')
+def put(key, value):
+    """
+    It can be used to set key with value.
+    Example -> kv get exampleKey exampleValue
+    """
+
+    response = put_value(key, value)
+    click.echo(response)
+
+        
+@click.command()
+def watch():
+    """
+    This functions connects with server and wait for socket events.
+    """
+
+    sio.connect('http://localhost:5000')
+    sio.wait()
+
+# Adding sub commands in kv command.
+commands.add_command(get)
+commands.add_command(put)
+commands.add_command(watch)
+
+##Sockets
+@sio.event
+def connect():
+    print('connected to server')
+
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
+
+# Listens for key_update event from server.
+@sio.on('key_update')
+def my_broadcast_event(data):
+    print(data)
+
+
+if __name__ == '__main__':
+    commands()
