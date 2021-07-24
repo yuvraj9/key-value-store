@@ -22,7 +22,7 @@ jobs:
       shell: bash
 
     - name: Get commit id
-      run: echo "##[set-output name=version;]$(echo `git ls-remote https://$${{ secrets.GITHUB_TOKEN }}@github.com/yuvraj9/${REPOSITORY_NAME}.git ${{ steps.get_branch.outputs.branch }} | awk '{ print $1}' | cut -c1-7`)"
+      run: echo "##[set-output name=version;]$(echo `git ls-remote https://$${{ secrets.MY_PAT }}@github.com/yuvraj9/${REPOSITORY_NAME}.git ${{ steps.get_branch.outputs.branch }} | awk '{ print $1}' | cut -c1-7`)"
       id: get_version
 
     - name: Set up Buildx 
@@ -34,7 +34,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: $${{ secrets.GITHUB_TOKEN }}
+        password: $${{ secrets.MY_PAT }}
     
     - name: Build and push docker image
       id: docker_build
