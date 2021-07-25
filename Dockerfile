@@ -21,4 +21,10 @@ ENV PYTHONUNBUFFERED 1
 
 EXPOSE 5000
 
+RUN adduser keystore -D
+
+RUN chown -R keystore /code
+
+USER keystore
+
 CMD ["gunicorn", "-w", "1", "--thread", "5", "-b", "0.0.0.0:5000", "main:app"]
