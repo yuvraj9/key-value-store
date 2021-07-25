@@ -2,11 +2,8 @@
 
 import os
 import click
-import socketio
 import requests
 from click.decorators import argument
-
-sio = socketio.Client()
 
 URL = os.getenv("URL", "http://localhost:5000")
 
@@ -22,7 +19,6 @@ def get_value(key):
         response: Returns the value of key from key-value store
     """
 
-    # Can be taken from ENV
     url = URL + '/kv'
     query_params = {
         'key': key
@@ -47,7 +43,6 @@ def put_value(key, value):
         response: Returns the updated key value pair.
     """
 
-    # Can be taken from ENV
     url = URL + '/kv'
     query_params = {
         'key': key,
@@ -93,39 +88,9 @@ def put(key, value):
     click.echo(response)
 
 
-@click.command()
-def watch():
-    """
-    This functions connects with server and wait for socket events.
-    """
-
-    sio.connect(URL)
-    sio.wait()
-
-
 # Adding sub commands in kv command.
 commands.add_command(get)
 commands.add_command(put)
-commands.add_command(watch)
-
-# Sockets
-
-
-@sio.event
-def connect():
-    print('connected to server')
-
-
-@sio.event
-def disconnect():
-    print('disconnected from server')
-
-# Listens for key_update event from server.
-
-
-@sio.on('key_update')
-def my_broadcast_event(data):
-    print(data)
 
 
 if __name__ == '__main__':
