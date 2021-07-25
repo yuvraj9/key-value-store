@@ -7,7 +7,7 @@ name: Package Docker Image
 on:
   push:
     branches:
-    - dontbuild
+    - main
     paths:
       - "**"
 
