@@ -11,7 +11,7 @@ def test_put_value():
     runner = CliRunner()
     testPut = runner.invoke(commands, ['put', 'key1', 'value1'])
     assert testPut.exit_code == 0
-    assert testPut.output == '{"key1": "value13"}\n\n'
+    assert testPut.output == '{"key1": "value1"}\n\n'
 
 def test_get_value():
     runner = CliRunner()

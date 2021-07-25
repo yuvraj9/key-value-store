@@ -46,7 +46,6 @@ jobs:
       run: |
         tox
         ls
-        pytest test.py
       env:
         # The hostname used to communicate with the server container
         URL: http://server:5000
