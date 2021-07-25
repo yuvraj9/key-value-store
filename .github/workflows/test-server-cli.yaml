@@ -45,6 +45,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Running test
       run: |
+        ls
         tox
       env:
         # The hostname used to communicate with the server container
