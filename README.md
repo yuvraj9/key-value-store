@@ -1,17 +1,19 @@
 # Key Value Store
 A simple KV (key-value) store web service with a subscription feature. As a user, you can perform put(key, val) and get(key) operations over HTTP and also subscribe to changes happening to any of the keys. It supports a CLI client which consumes the web service supporting following commands a. get <key>: displays the value of an existing key b. put <key> <value>: sets the value of the given key.
 
-## Prerequisites
+## 📜 Prerequisites
 To easily use it you should have docker installed on your machine to run the webserver. 
 
-## Usage
-#### 1. Start webserver using docker
+---
+
+## 🚀 Usage
+### 1. Start webserver using docker
 This will start the webserver on your local machine. It will expose the service at 5000 port. 
 ```
 docker run -d -p 5000:5000 ghcr.io/yuvraj9/key-value-store-main:latest
 ```
 
-#### 2. Use CLI client
+### 2. Use CLI client
 To use the CLI client you can use the same the container which is running and execute inside it or you can use it on your local machine.
 - **Use CLI in already running docker container[Command line is already present as binary executable]**
 
@@ -39,8 +41,9 @@ kv put <key> <value>
 kv watch
 ```
 
+---
 
-## Code Structure
+## 📄 Code Structure
 ```
 key-value-store
 ├── kvstore
@@ -99,8 +102,9 @@ This file contains basic tests which are configured according to this code base.
 
 This contains sample code of CLI. It is being used by the test.py file to execute testing.
 
+---
 
-## CI/CD
+## 🔨 CI/CD
 
 This repo is configured with auto builds on every push to main branch. It occurs in three steps and every step is dependent on previous step. So if lint fails it won't build the image.
 
@@ -110,8 +114,9 @@ Steps:-
 - **build** - Builds the dockerfile and pushes to registry with 2 tags - `latest` and `<commit-id>`.
 - **test** - Some basic smoke tests are performed on the server.
 
+---
 
-## Testing
+## 🔧 Testing
 
 There is linting and basic smoke testing setup in this codebase to prevent errors.
 
