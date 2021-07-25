@@ -2,11 +2,14 @@ import json
 from tests.cli import commands
 from click.testing import CliRunner
 
+
 def test_get_not_found():
     runner = CliRunner()
     result = runner.invoke(commands, ['get', 'lamsbda'])
+    expected_value = '{"status_code": 404, "error": "Key Doesn\'t exist"}\n\n'
     assert result.exit_code == 0
-    assert result.output == '{"status_code": 404, "error": "Key Doesn\'t exist"}\n\n'
+    assert result.output == expected_value
+
 
 def test_put_value():
     runner = CliRunner()
@@ -14,11 +17,13 @@ def test_put_value():
     assert testPut.exit_code == 0
     assert testPut.output == '{"key1": "value1"}\n\n'
 
+
 def test_get_value():
     runner = CliRunner()
     testGet = runner.invoke(commands, ['get', 'key1'])
     assert testGet.exit_code == 0
     assert testGet.output == '{"value": "value1"}\n\n'
+
 
 def verify_from_file():
     with open('store.json', 'r') as file:
@@ -31,5 +36,6 @@ def verify_from_file():
     value = KVSTORE.get('key1')
 
     assert value == 'value1'
+
 
 verify_from_file()

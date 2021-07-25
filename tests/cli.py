@@ -7,6 +7,7 @@ from click.decorators import argument
 
 URL = os.getenv("URL", "http://localhost:5000")
 
+
 def get_value(key):
     """
     This function is used to get key value from server.
@@ -90,7 +91,6 @@ def put(key, value):
 # Adding sub commands in kv command.
 commands.add_command(get)
 commands.add_command(put)
-
 
 
 if __name__ == '__main__':

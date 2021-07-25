@@ -10,6 +10,7 @@ sio = socketio.Client()
 
 URL = os.getenv("URL", "http://localhost:5000")
 
+
 def get_value(key):
     """
     This function is used to get key value from server.
@@ -20,7 +21,6 @@ def get_value(key):
     Returns:
         response: Returns the value of key from key-value store
     """
-
 
     # Can be taken from ENV
     url = URL + '/kv'
