@@ -38,6 +38,7 @@ def test_get_value():
     testGet = runner.invoke(commands, ['get', 'key1'])
     assert testGet.exit_code == 0
     assert testGet.output == '{"value": "value1"}\n\n'
+    verify_from_file()
 
 
 def verify_from_file():
@@ -56,6 +57,3 @@ def verify_from_file():
     value = KVSTORE.get('key1')
 
     assert value == 'value1'
-
-
-verify_from_file()
