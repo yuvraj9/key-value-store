@@ -1,5 +1,6 @@
-from click.testing import CliRunner
+import json
 from tests.cli import commands
+from click.testing import CliRunner
 
 def test_get_not_found():
     runner = CliRunner()
@@ -19,4 +20,16 @@ def test_get_value():
     assert testGet.exit_code == 0
     assert testGet.output == '{"value": "value1"}\n\n'
 
-# File test
+def verify_from_file():
+    with open('store.json', 'r') as file:
+        data = file.read()
+
+    # Converts file data into a json
+    KVSTORE = json.loads(data)
+
+    # Check for given key in the object and fetches value
+    value = KVSTORE.get('key1')
+
+    assert value == 'value1'
+
+verify_from_file()
