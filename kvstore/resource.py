@@ -56,7 +56,8 @@ class KeyValueStore(Resource):
 
         except Exception as error:
             logger.error("Error: {error}".format(error=str(error)))
-            return error, 500
+            error_message = {"message": str(error), "status_code": 500}
+            return error_message, 500
 
     def put(self):
         """
@@ -85,7 +86,7 @@ class KeyValueStore(Resource):
             # Updates the existing object with key value pair.
             KVSTORE.update(newKeyValue)
 
-            updates = "Updated key: {} with value: {}".format(key, value)
+            updates = "Key: {} set with value: {}".format(key, value)
 
             # Writes the updated value in file.
             self.STORAGE.write(KVSTORE)
@@ -98,4 +99,5 @@ class KeyValueStore(Resource):
 
         except Exception as error:
             logger.error("Error: {error}".format(error=str(error)))
-            return error, 500
+            error_message = {"message": str(error), "status_code": 500}
+            return error_message, 500

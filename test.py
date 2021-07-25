@@ -1,4 +1,3 @@
-import json
 from tests.cli import commands
 from click.testing import CliRunner
 
