@@ -47,6 +47,8 @@ key-value-store
 │   └── resource.py
 │   └── sockets.py
 │   └── storage.py
+├── tests
+│   └── cli.py
 ├── .gitignore
 ├── Dockerfile
 ├── kv
@@ -54,6 +56,8 @@ key-value-store
 ├── README.md
 ├── requirements.txt
 ├── utils.py
+├── test.py
+├── tox.ini
 ```
 
 - **main.py**
@@ -86,3 +90,41 @@ This contains all required packages which can be installed using pip.
 ```
 pip install -r requirements.txt
 ```
+
+- **test.py**
+
+This file contains basic tests which are configured according to this code base. It has tests which verifies the output from the server.
+
+- **tests/cli.py**
+
+This contains sample code of CLI. It is being used by the test.py file to execute testing.
+
+
+## CI/CD
+
+This repo is configured with auto builds on every push to main branch. It occurs in three steps and every step is dependent on previous step. So if lint fails it won't build the image.
+
+Steps:-
+
+- **lint** - Lints the codebase using flake8
+- **build** - Builds the dockerfile and pushes to registry with 2 tags - `latest` and `<commit-id>`.
+- **test** - Some basic smoke tests are performed on the server.
+
+
+## Testing
+
+There is linting and basic smoke testing setup in this codebase to prevent errors.
+
+- **Linting**
+
+Linting is enabled in CI - Github actions. It runs when a new PR is raised for `main` branch and also runs on new push on main branch.
+Flake8 is being used to lint the codebase.
+
+- **Smoke tests**
+
+Some basic tests are configured which verifies if we are getting the expected output from the server.
+
+`tox` - Tox helps in running tests, configuring the test tool of choice.
+`pytest` - pytest is the tool being used to conduct testing.
+
+`test.py` - This file contains basic test cases. It calls the `tests/cli.py` which contains code for CLI. It executes the cli commands and verifies the output. It throws error in case the output does not match the condition. More information on the testcasds are present in the docstrings of functions.
